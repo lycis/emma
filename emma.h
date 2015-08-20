@@ -22,6 +22,8 @@
   #define EMMA_API
 #endif
 
+#include "emma_helper.h"
+
 #ifdef	__cplusplus
 extern "C" {
 #endif
