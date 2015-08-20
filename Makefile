@@ -2,22 +2,27 @@ CC = gcc
 LD = ld
 OBJ = emma_helper.o memtable.o
 LDFLAGS = -shared
-CCFLAGS = -std=c11 -DEMMA_LIB_EXPORT
+CFLAGS = -std=c11 -DEMMA_LIB_EXPORT -Wall -Werror -pedantic-errors
 
 ifeq ($(OS),Windows_NT)
-  EXT = dll
+  NAME = emma.dll
 else
-  EXT = so
+  NAME = libemma.so
 endif
 
-all: $(OBJ)
-	$(CC) $(LDFLAGS) -o emma.$(EXT) $(OBJ)
+.PHONY: clean
+
+release: $(OBJ)
+	$(CC) $(LDFLAGS) -Ofast -o $(NAME) $(OBJ)
 	
-emma_helper.o: emma_helper.c
-	$(CC) $(CCFLAGS) -c emma_helper.c
+debug: $(OBJ)
+	$(CC) $(LDFLAGS) -Og -o $(NAME) $(OBJ)
+	
+emma_helper.o: emma_helper.h
+	$(CC) $(CFLAGS) -c emma_helper.c
 	
 memtable.o: memtable.c
-	$(CC) $(CCFLAGS) -c memtable.c
+	$(CC) $(CFLAGS) -c memtable.c
 	
 clean: 
-	rm *.o emma.$(EXT)
+	$(RM) *.o $(NAME)
