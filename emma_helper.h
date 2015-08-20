@@ -23,7 +23,10 @@ extern "C" {
 #endif
 
 // provide the next greater power of 2 or n if n == power of 2
-size_t EMMA_API nextp2(size_t n);
+size_t EMMA_API emma_nextp2(size_t);
+
+// find the log 2 base of a number
+int EMMA_API emma_log2(size_t);
 
 
 #ifdef	__cplusplus
