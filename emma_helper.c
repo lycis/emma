@@ -20,7 +20,7 @@ size_t emma_nextp2(size_t v) {
     return v;
 }
 
-int EMMA_API emma_log2(size_t v) {
+int emma_log2(size_t v) {
     int r; // result goes here
 
     static const int MultiplyDeBruijnBitPosition[32] ={

@@ -2,7 +2,6 @@
  * File:   memtable.h
  * Author: Daniel Eder (daniel@deder.at)
  *
- * Created on 19. August 2015, 12:26
  * 
  * !!! INTERNAL ONLY !!!
  * 

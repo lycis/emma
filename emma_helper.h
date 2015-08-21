@@ -2,7 +2,6 @@
  * File:   emma_helper.h
  * Author: Daniel Eder (daniel@deder.at)
  *
- * Created on 19. August 2015, 13:48
  * 
  * !!! INTERNAL ONLY !!!
  * 

@@ -2,7 +2,6 @@
  * File:   emma.h
  * Author: Daniel Eder (daniel@deder.at)
  *
- * Created on 19. August 2015, 12:26
  * 
  * Default header file for external interfaces of Emma.
  * 
