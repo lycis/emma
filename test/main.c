@@ -44,7 +44,37 @@ TEST_CASE_BEGIN(emma_nextp2_100000)
 if(emma_nextp2(100000) != 131072) return RET_TEST_FAIL;
 return RET_TEST_OK;
 TEST_CASE_END
-        
+
+// find base of 1
+TEST_CASE_BEGIN(emma_log2_1)
+if(emma_log2(1) != 0) return RET_TEST_FAIL;
+return RET_TEST_OK;
+TEST_CASE_END
+
+// find base of 2
+TEST_CASE_BEGIN(emma_log2_2)
+if(emma_log2(2) != 1) return RET_TEST_FAIL;
+return RET_TEST_OK;
+TEST_CASE_END
+
+// find base of 8
+TEST_CASE_BEGIN(emma_log2_8)
+if(emma_log2(8) != 3) return RET_TEST_FAIL;
+return RET_TEST_OK;
+TEST_CASE_END
+
+// find base of 1024
+TEST_CASE_BEGIN(emma_log2_1024)
+if(emma_log2(1024) != 10) return RET_TEST_FAIL;
+return RET_TEST_OK;
+TEST_CASE_END
+
+// alloacte memory
+TEST_CASE_BEGIN(allocate_memory)
+void *ptr = emma_malloc(10);
+if(ptr == 0) return RET_TEST_FAIL;
+return RET_TEST_OK;
+TEST_CASE_END
 
 /*
  * 
@@ -58,6 +88,11 @@ int main(int argc, char** argv) {
     TEST(emma_nextp2_0);
     TEST(emma_nextp2_1);
     TEST(emma_nextp2_100000);
+    TEST(emma_log2_1);
+    TEST(emma_log2_2);
+    TEST(emma_log2_8);
+    TEST(emma_log2_1024);
+    TEST(allocate_memory);
     
     // print statistics
     printf("Total: %i Success: %i Failed: %i\n", total, ok, nok);

@@ -32,5 +32,8 @@
     <ClCompile Include="..\memtable.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\api.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

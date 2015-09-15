@@ -129,6 +129,7 @@
     <ClInclude Include="..\memtable.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\api.c" />
     <ClCompile Include="..\emma_helper.c" />
     <ClCompile Include="..\memtable.c" />
   </ItemGroup>

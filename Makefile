@@ -1,6 +1,6 @@
 CC = gcc
 LD = ld
-OBJ = emma_helper.o memtable.o
+OBJ = emma_helper.o memtable.o api.o
 LDFLAGS = -shared
 CFLAGS = -std=c11 -DEMMA_LIB_EXPORT -Wall -Werror -pedantic-errors
 
@@ -25,6 +25,9 @@ emma_helper.o: emma_helper.h
 	
 memtable.o: memtable.c
 	$(CC) $(CFLAGS) -c memtable.c
+
+api.o: api.c
+	$(CC) $(CFLAGS) -c api.c
 	
 test: release
 	$(MAKE) -C test
