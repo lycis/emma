@@ -3,6 +3,7 @@
 #include "emma.h"
 
 #include <string.h>
+#include <stdio.h>
 
 void init_memory_table(size_t blkSize)
 {
@@ -26,14 +27,12 @@ void init_memory_table(size_t blkSize)
 
 memory_block* find_free_block(memory_page *start)
 {
-    memory_page *page, *prevPage;
+    memory_page *page;
 
     // position on a page with free blocks
     page = start;
-    prevPage = 0;
     while(page->numFree == 0 && page->next != 0)
     {
-        prevPage = page;
         page = page->next;
     }
 
@@ -59,7 +58,8 @@ memory_page* init_memory_page(size_t blksize)
     size_t       extBlkSize = blksize+(2*EMMA_SG_LEN);
     memory_page  *p = (memory_page*) calloc(1, sizeof(memory_page));
     int i;
-    
+   
+    printf("init_memory_page(%zu)\n", blksize); 
     
     p->size = 10*extBlkSize; // TODO configurable blocks per page
     

@@ -63,6 +63,12 @@ if(emma_log2(8) != 3) return RET_TEST_FAIL;
 return RET_TEST_OK;
 TEST_CASE_END
 
+// find base of 16
+TEST_CASE_BEGIN(emma_log2_16)
+if(emma_log2(16) != 4) return RET_TEST_FAIL;
+return RET_TEST_OK;
+TEST_CASE_END
+
 // find base of 1024
 TEST_CASE_BEGIN(emma_log2_1024)
 if(emma_log2(1024) != 10) return RET_TEST_FAIL;
@@ -91,6 +97,7 @@ int main(int argc, char** argv) {
     TEST(emma_log2_1);
     TEST(emma_log2_2);
     TEST(emma_log2_8);
+    TEST(emma_log2_16);
     TEST(emma_log2_1024);
     TEST(allocate_memory);
     

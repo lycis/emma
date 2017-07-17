@@ -25,7 +25,7 @@ extern "C" {
 size_t EMMA_API emma_nextp2(size_t);
 
 // find the log 2 base of a number
-int EMMA_API emma_log2(size_t);
+size_t EMMA_API emma_log2(size_t);
 
 
 #ifdef	__cplusplus

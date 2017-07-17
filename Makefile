@@ -2,7 +2,7 @@ CC = gcc
 LD = ld
 OBJ = emma_helper.o memtable.o api.o
 LDFLAGS = -shared
-CFLAGS = -std=c11 -DEMMA_LIB_EXPORT -Wall -Werror -pedantic-errors
+CFLAGS = -std=c11 -DEMMA_LIB_EXPORT -Wall -Werror -pedantic-errors -fPIC
 
 ifeq ($(OS),Windows_NT)
   NAME = emma.dll
@@ -29,8 +29,10 @@ memtable.o: memtable.c
 api.o: api.c
 	$(CC) $(CFLAGS) -c api.c
 	
-test: release
+build_test: debug
 	$(MAKE) -C test
+	
+test: build_test
 	$(EXEC_TEST)
 	
 testdbg: debug

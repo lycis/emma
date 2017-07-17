@@ -251,3 +251,10 @@ FakesAssemblies/
 **/*.Server/GeneratedArtifacts
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
+
+test/emma_test
+
+**.swp
+emma.cbp
+emma.layout
+emma_test

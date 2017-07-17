@@ -1,7 +1,8 @@
 CC = gcc
 LD = ld
 OBJ = main.o
-CFLAGS = -g -std=c11 -I.. -L.. -lemma -Wall -Werror -pedantic-errors
+CFLAGS = -g -std=c11 -I.. -L.. -Wall -Werror -pedantic-errors -fPIC
+LIBS = -lemma
 OBJ = main.o
 
 ifeq ($(OS),Windows_NT)
@@ -15,7 +16,7 @@ endif
 	
 	
 emma_test: $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBS)
 	
 main.o: main.c
 	$(CC) $(CFLAGS) -c main.c
