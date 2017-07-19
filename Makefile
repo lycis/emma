@@ -9,7 +9,7 @@ ifeq ($(OS),Windows_NT)
   EXEC_TEST = cp test/emma_test.exe . && ./emma_test.exe
 else
   NAME = libemma.so
-  EXEC_TEST = cp test/emma_test . && ./emma_test
+  EXEC_TEST = cp test/emma_test . && LD_LIBRARY_PATH=`pwd` ./emma_test
 endif
 
 .PHONY: clean

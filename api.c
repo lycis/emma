@@ -31,6 +31,7 @@ void* emma_malloc(size_t size)
     {
         printf("init first page\n");
         memory_table[base] = init_memory_page(blksize);
+	printf("first page = %p\n", (void*) memory_table[base]);
     }
 
     list = memory_table[base];
@@ -39,6 +40,7 @@ void* emma_malloc(size_t size)
     // get a free block of the according size
     block = find_free_block(list); // TODO not working..
     printf("memory block = %p\n", (void*) block);
+    printf("memory page = %p\n", (void*) list);
 
     // allocate a new page of memory if necessary
     if(block == 0)
@@ -47,6 +49,15 @@ void* emma_malloc(size_t size)
         printf("allocate new page\n");
         pNewPage = init_memory_page(blksize);
 	printf("memory page initialised = %p\n", (void*) pNewPage);
+	append_memory_page(pNewPage, base);
+	list = memory_table[base];
+	printf("listi[%d] = %p\n", base, (void*) list);
+	block = find_free_block(list);
+	if(block == 0)
+	{
+            printf("error: no free block\n");
+	    return 0;
+	}
 
         // add new page to the memory list
         currPage = list;

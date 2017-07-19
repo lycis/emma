@@ -69,10 +69,13 @@ void init_memory_table(size_t blkSize);
 
 // returns a pointer to the next free memory block on the given page with
 // the given size. it will return 0 if no memory of that size is available.
-memory_block* find_free_block(memory_page *start);
+memory_block* find_free_block(const memory_page *start);
 
 // allocates and initialises a new page of memory with the given block size
 memory_page* init_memory_page(size_t blksize);
+
+// append a page of memory to the memory table
+void append_memory_page(const memory_page *p, size_t base);
 
 #ifdef	__cplusplus
 }
