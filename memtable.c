@@ -9,10 +9,10 @@ void init_memory_table(size_t blkSize)
 {
     int base, i;
 
-    printf("init_memory_table(%zu)\n", blkSize);
+    debug_print("init_memory_table(%zu)\n", blkSize);
     
     base = emma_log2(blkSize) + 1;
-    printf("base=%d\n", base);
+    debug_print("base=%d\n", base);
     
     if(memory_table == 0) {
         // init list
@@ -27,14 +27,12 @@ void init_memory_table(size_t blkSize)
                (base-memory_table_len)*sizeof(memory_page*));*/
     }
 
-    printf("initialisng first pages...\n");
+    debug_print("initialisng first pages...\n");
 
     for(i=memory_table_len+1; i<=(base-1); ++i) {
-	printf("fp base = %d\n", i);
+        debug_print("fp base = %d\n", i);
         append_memory_page(init_memory_page(emma_nextp2(i)), i);
     }
-
-    printf("done\n");
 
     memory_table_len = base;
 }
@@ -65,10 +63,10 @@ memory_page* init_memory_page(size_t blksize)
     memory_page  *p = (memory_page*) calloc(1, sizeof(memory_page));
     int i;
    
-    printf("init_memory_page(%zu)\n", blksize); 
+    debug_print("init_memory_page(%zu)\n", blksize); 
     
     p->size = 10*extBlkSize; // TODO configurable blocks per page
-    printf("p->size = %zu\n", p->size);
+    debug_print("p->size = %zu\n", p->size);
     
     // allocate data area for the page
     p->data = calloc(1, p->size);
@@ -97,8 +95,8 @@ memory_page* init_memory_page(size_t blksize)
     for(i=0; i<10; ++i)
         *(p->freeblk) = *(p->blocks+i);
     
-    printf("init_memory_page(%zu) = %p\n", blksize, (void*) p);
-    printf("p->next = %p\n", (void*) p->next);
+    debug_print("init_memory_page(%zu) = %p\n", blksize, (void*) p);
+    debug_print("p->next = %p\n", (void*) p->next);
     return p;
 }
 
@@ -122,12 +120,12 @@ void append_memory_page(const memory_page *page, size_t blksize)
 {
     memory_page *last = 0;
 
-    printf("append_memory_page(%p, %zu)\n", (void*) page, blksize);
+    debug_print("append_memory_page(%p, %zu)\n", (void*) page, blksize);
 
     last = get_last_memory_page(blksize);
     if(last == 0)
     {
-	printf("setting first page: memory_table[%zu] = %p\n", blksize, (void*) page);
+	debug_print("setting first page: memory_table[%zu] = %p\n", blksize, (void*) page);
         memory_table[blksize] = (memory_page*) page;
     }
     else

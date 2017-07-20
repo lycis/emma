@@ -13,60 +13,60 @@ void* emma_malloc(size_t size)
 
     blksize = emma_nextp2(size);
 
-    printf("blksize=%zu\n", blksize);
+    debug_print("blksize=%zu\n", blksize);
 
     // get matching list
     base = emma_log2(blksize);
-    printf("index=%d\n", base);
+    debug_print("index=%d\n", base);
 
     if(memory_table_len < (base + 1))
     {
-        printf("init_memory_table\n");
+        debug_print("init_memory_table\n");
         init_memory_table(blksize);
     }
 
-    printf("checking first page init\n");
+    debug_print("checking first page init\n");
     // initialise first page of memory if not yet done
     if(memory_table[base] == 0) 
     {
-        printf("init first page\n");
+        debug_print("init first page\n");
         memory_table[base] = init_memory_page(blksize);
-	printf("first page = %p\n", (void*) memory_table[base]);
+	debug_print("first page = %p\n", (void*) memory_table[base]);
     }
 
     list = memory_table[base];
-    printf("memory page=%p\n", (void*) list);
+    debug_print("memory page=%p\n", (void*) list);
 
     // get a free block of the according size
     block = find_free_block(list); // TODO not working..
-    printf("memory block = %p\n", (void*) block);
-    printf("memory page = %p\n", (void*) list);
+    debug_print("memory block = %p\n", (void*) block);
+    debug_print("memory page = %p\n", (void*) list);
 
     // allocate a new page of memory if necessary
     if(block == 0)
     {
 	memory_page *pNewPage, *currPage;
-        printf("allocate new page\n");
+        debug_print("allocate new page\n");
         pNewPage = init_memory_page(blksize);
-	printf("memory page initialised = %p\n", (void*) pNewPage);
+	debug_print("memory page initialised = %p\n", (void*) pNewPage);
 	append_memory_page(pNewPage, base);
 	list = memory_table[base];
-	printf("listi[%d] = %p\n", base, (void*) list);
+	debug_print("listi[%d] = %p\n", base, (void*) list);
 	block = find_free_block(list);
 	if(block == 0)
 	{
-            printf("error: no free block\n");
+            debug_print("error: no free block\n");
 	    return 0;
 	}
 
         // add new page to the memory list
         currPage = list;
-	printf("currPage=%p\n next=%p", (void*) currPage, (void*) currPage->next);
+	debug_print("currPage=%p\n next=%p", (void*) currPage, (void*) currPage->next);
         while(currPage->next != 0)
         {
-	    printf("paging...\n");
+	    debug_print("paging...\n");
             currPage = currPage->next;
-	    printf("currPage=%p\n", (void*) currPage);
+	    debug_print("currPage=%p\n", (void*) currPage);
         }
 
         currPage->next = pNewPage;

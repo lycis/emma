@@ -21,6 +21,9 @@
   #define EMMA_API
 #endif
 
+#define debug_print(...) \
+	do { if (EMMA_DEBUG) fprintf(stderr,  __VA_ARGS__); } while (0)
+
 #include "emma_helper.h"
 
 #define EMMA_SG_LEN 16 // length of the safeguard for memory

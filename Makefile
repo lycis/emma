@@ -17,6 +17,7 @@ endif
 release: $(OBJ)
 	$(CC) $(LDFLAGS) $(CFLAGS) -Ofast -o $(NAME) $(OBJ)
 	
+debug: CFLAGS+= -DEMMA_DEBUG
 debug: $(OBJ)
 	$(CC) $(LDFLAGS) -g -Og -o $(NAME) $(OBJ)
 	
