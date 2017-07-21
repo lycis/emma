@@ -21,17 +21,9 @@ void* emma_malloc(size_t size)
 
     if(memory_table_len < (base + 1))
     {
+        // extend memory table
         debug_print("init_memory_table\n");
         init_memory_table(blksize);
-    }
-
-    debug_print("checking first page init\n");
-    // initialise first page of memory if not yet done
-    if(memory_table[base] == 0) 
-    {
-        debug_print("init first page\n");
-        memory_table[base] = init_memory_page(blksize);
-	debug_print("first page = %p\n", (void*) memory_table[base]);
     }
 
     list = memory_table[base];

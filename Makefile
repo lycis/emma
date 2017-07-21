@@ -30,7 +30,7 @@ memtable.o: memtable.c
 api.o: api.c
 	$(CC) $(CFLAGS) -c api.c
 	
-build_test: debug
+build_test: release
 	$(MAKE) -C test
 	
 test: build_test

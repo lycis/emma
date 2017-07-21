@@ -21,8 +21,12 @@
   #define EMMA_API
 #endif
 
-#define debug_print(...) \
-	do { if (EMMA_DEBUG) fprintf(stderr,  __VA_ARGS__); } while (0)
+#ifdef EMMA_DEBUG
+  #define debug_print(...) \
+  	  do { fprintf(stderr,  __VA_ARGS__); } while (0)
+#else
+  #define debug_print(...)
+#endif
 
 #include "emma_helper.h"
 

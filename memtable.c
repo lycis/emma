@@ -41,19 +41,28 @@ memory_block* find_free_block(const memory_page *start)
 {
     const memory_page *page;
 
+    debug_print("find_free_block(%p)\n", (void*) start);
+
     // position on a page with free blocks
     page = start;
+    debug_print("page (%p) has %d free blocks\n", (void*) page, page->numFree);
     while(page->numFree == 0 && page != 0)
     {
+	debug_print("no free block on page. next = %p\n", (void*) page->next);
         page = page->next;
     }
 
-    if(page == 0)
+    if(page == 0) {
+	debug_print("page = NULL\n");
         return 0;
+    }
 
-    if(page->numFree == 0)
+    if(page->numFree == 0) {
+	debug_print("all blocks are used up.\n");
         return 0;
+    }
 
+    debug_print("free block: %p\n", (void*) page->freeblk[0]);
     return page->freeblk[0];
 }
 
@@ -76,15 +85,14 @@ memory_page* init_memory_page(size_t blksize)
     for(i=0; i<10; ++i)
     {
         char *dataBegin = ((char*) p->data) + (i*extBlkSize);
-        memory_block *b =  *(p->blocks + i);
-
-        b = (memory_block*) malloc(sizeof(memory_block)); 
+        memory_block *b = (memory_block*) malloc(sizeof(memory_block)); 
 
         b->page = p;
         b->sgPre  = dataBegin;
         b->data   = dataBegin + EMMA_SG_LEN;
         b->sgPost = dataBegin + EMMA_SG_LEN + blksize;
         b->allocStatus = FREE;
+	p->blocks[i] = b;
     }
     
     // store record of all free blocks
@@ -92,8 +100,10 @@ memory_page* init_memory_page(size_t blksize)
     p->numFree = 10;
     
     // add all blocks to the list of free blocks
-    for(i=0; i<10; ++i)
-        *(p->freeblk) = *(p->blocks+i);
+    for(i=0; i<10; ++i) {
+	debug_print("p->freeblk[%d] = %p\n", i, (void*) p->blocks[i]) ;
+        p->freeblk[i] = p->blocks[i];
+    }
     
     debug_print("init_memory_page(%zu) = %p\n", blksize, (void*) p);
     debug_print("p->next = %p\n", (void*) p->next);
