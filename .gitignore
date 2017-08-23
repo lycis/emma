@@ -258,3 +258,13 @@ test/emma_test
 emma.cbp
 emma.layout
 emma_test
+
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
