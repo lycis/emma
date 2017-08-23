@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(emma)
 link_directories(${emma_BINARY_DIR})
+enable_testing()
 
 file(GLOB emma_src "*.h" "*.c")
 add_library(emma STATIC ${emma_src})
@@ -11,3 +12,5 @@ target_link_libraries(emma_test emma)
 target_include_directories(emma_test PUBLIC ".")
 
 add_dependencies(emma_test emma)
+
+add_test(NAME test COMMAND emma_test)
