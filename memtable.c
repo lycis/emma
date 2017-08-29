@@ -56,7 +56,7 @@ memory_block* find_free_block(const memory_page *start)
 	debug_print("page = NULL\n");
         return 0;
     }
-
+    
     if(page->numFree == 0) {
 	debug_print("all blocks are used up.\n");
         return 0;
@@ -64,6 +64,11 @@ memory_block* find_free_block(const memory_page *start)
 
     debug_print("free block: %p\n", (void*) page->freeblk[0]);
     return page->freeblk[0];
+}
+
+void mark_block_used(const memory_page *page)
+{
+
 }
 
 memory_page* init_memory_page(size_t blksize)
@@ -74,7 +79,8 @@ memory_page* init_memory_page(size_t blksize)
    
     debug_print("init_memory_page(%zu)\n", blksize); 
     
-    p->size = 10*extBlkSize; // TODO configurable blocks per page
+    // size = block count * block size + size of backpointer to block for each data element
+    p->size = 10*extBlkSize + sizeof(memory_block*); // TODO configurable blocks per page
     debug_print("p->size = %zu\n", p->size);
     
     // allocate data area for the page
@@ -88,11 +94,14 @@ memory_page* init_memory_page(size_t blksize)
         memory_block *b = (memory_block*) malloc(sizeof(memory_block)); 
 
         b->page = p;
-        b->sgPre  = dataBegin;
+        b->sgPre  = dataBegin + sizeof(memory_block*);
         b->data   = dataBegin + EMMA_SG_LEN;
         b->sgPost = dataBegin + EMMA_SG_LEN + blksize;
         b->allocStatus = FREE;
-	p->blocks[i] = b;
+
+        memcpy(dataBegin, &b, sizeof(memory_block*)); // save back reference
+
+	    p->blocks[i] = b;
     }
     
     // store record of all free blocks
@@ -101,7 +110,7 @@ memory_page* init_memory_page(size_t blksize)
     
     // add all blocks to the list of free blocks
     for(i=0; i<10; ++i) {
-	debug_print("p->freeblk[%d] = %p\n", i, (void*) p->blocks[i]) ;
+	    debug_print("p->freeblk[%d] = %p\n", i, (void*) p->blocks[i]) ;
         p->freeblk[i] = p->blocks[i];
     }
     

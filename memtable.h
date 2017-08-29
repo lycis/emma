@@ -26,11 +26,11 @@ struct memory_page;
 
 // holds information about a block of memory in the internal memory
 typedef struct memory_block {
-    struct memory_page  *page;       // number of the memory page
-    char         *sgPre;      // safeguard placed in front of data
-    char         *sgPost;     // safeguard placed behind data
-    void         *data;       // actual data
-    int          allocStatus; // indicates allocation status (0 = free, 1 = allocated)
+    struct memory_page  *page; // number of the memory page
+    char         *sgPre;       // safeguard placed in front of data
+    char         *sgPost;      // safeguard placed behind data
+    void         *data;        // actual data
+    int          allocStatus;  // indicates allocation status (0 = free, 1 = allocated)
 } memory_block;
 
 // holds information for a page in the internal memory that consits of

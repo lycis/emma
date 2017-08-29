@@ -37,28 +37,28 @@ void* emma_malloc(size_t size)
     // allocate a new page of memory if necessary
     if(block == 0)
     {
-	memory_page *pNewPage, *currPage;
+    memory_page *pNewPage, *currPage;
         debug_print("allocate new page\n");
         pNewPage = init_memory_page(blksize);
-	debug_print("memory page initialised = %p\n", (void*) pNewPage);
-	append_memory_page(pNewPage, base);
-	list = memory_table[base];
-	debug_print("listi[%d] = %p\n", base, (void*) list);
-	block = find_free_block(list);
-	if(block == 0)
-	{
+    debug_print("memory page initialised = %p\n", (void*) pNewPage);
+    append_memory_page(pNewPage, base);
+    list = memory_table[base];
+    debug_print("listi[%d] = %p\n", base, (void*) list);
+    block = find_free_block(list);
+    if(block == 0)
+    {
             debug_print("error: no free block\n");
-	    return 0;
-	}
+        return 0;
+    }
 
         // add new page to the memory list
         currPage = list;
-	debug_print("currPage=%p\n next=%p", (void*) currPage, (void*) currPage->next);
+        debug_print("currPage=%p\n next=%p", (void*) currPage, (void*) currPage->next);
         while(currPage->next != 0)
         {
-	    debug_print("paging...\n");
+            debug_print("paging...\n");
             currPage = currPage->next;
-	    debug_print("currPage=%p\n", (void*) currPage);
+            debug_print("currPage=%p\n", (void*) currPage);
         }
 
         currPage->next = pNewPage;
@@ -72,3 +72,12 @@ void* emma_malloc(size_t size)
     return block->data;
 }
 
+int emma_free(memory_block* block)
+{
+    if(block->allocStatus != 1)
+    {
+//        return EMMA_FREE_NOT_ALLOCATED;
+    }
+
+return 0;
+}
